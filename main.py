@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 app = FastAPI()
 
-model = RandomForestClassifier()
+model = RandomForestClassifier(n_estimators=100)
 trained = False
 
 class TrainData(BaseModel):
@@ -29,7 +29,7 @@ def train(d: TrainData):
         X.append(item["features"])
         y.append(item["result"])
 
-    if len(X) < 10:
+    if len(X) < 20:
         return {"error":"not enough data"}
 
     model.fit(X, y)
